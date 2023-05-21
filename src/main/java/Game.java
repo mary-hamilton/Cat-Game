@@ -6,13 +6,11 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-
     public Game() {
     }
-
     public static Map<String, Room> roomList = new HashMap<>();
     public static Room currentRoom;
-    public static Map<String, Item> inventory = new HashMap<>();
+    public static Item inventory;
 
     public static void loadRooms() {
         try {
@@ -104,9 +102,9 @@ public class Game {
     }
 
     public static void seeInventory() {
-        if (inventory.size() > 0) {
+        if (inventory != null) {
             System.out.println("You are carrying:");
-            inventory.values().forEach(item -> System.out.println("A " + item.getName()));
+            System.out.println(inventory.getName());
         } else {
             System.out.println("You are not carrying anything.");
         }
@@ -132,10 +130,10 @@ public class Game {
         directionVerbs.add("n");
         directionVerbs.add("e");
         directionVerbs.add("s");
-        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop"));
+        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play"));
         List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door"));
         if (words.size() > 2) {
-            System.out.println("Commands should just be 2 words");
+            System.out.println("Commands should be 2 words or less");
         } else {
             verb = words.get(0);
             if (directionVerbs.contains(verb)) {
@@ -150,7 +148,7 @@ public class Game {
                     if (!nouns.contains(noun)) {
                         System.out.println(noun + " is not a known noun");
                     } else {
-                        if (noun.equals("inventory")) {
+                        if (verb.equals("see") && noun.equals("inventory")) {
                             seeInventory();
                         } else {
                             Item thing = currentRoom.getContents().get(noun);
@@ -177,18 +175,23 @@ public class Game {
                                     case "push":
                                         thing.push();
                                         break;
+                                    case "play":
+                                        thing.play();
+                                        break;
                                     case "drop":
                                         System.out.println("You cannot drop something you aren't carrying!");
                                         break;
                                     default:
                                         System.out.println("You can't do that.");
                                 }
-                            } else {
-                                if (verb.equals("drop")&& inventory.get(noun) != null) {
-                                    ((MoveableItem) inventory.get(noun)).drop();
+                            } else if (inventory.getName().equals(noun)) {
+                                if (verb.equals("drop")) {
+                                    ((MoveableItem) inventory).drop();
                                 } else {
-                                    System.out.println("There is no " + noun + " here.");
+                                    System.out.println("You can't do that while carefully carrying it in your mouth.");
                                 }
+                            } else {
+                                System.out.println("There is no " + noun + " here.");
                             }
                         }
                     }
@@ -196,21 +199,16 @@ public class Game {
             }
         }
     }
-
     public String runCommand(String input) {
         List<String> wordList;
-        String output = "ok";
+        String output = "";
         String lowerCaseTrimmed = input.trim().toLowerCase();
         if (lowerCaseTrimmed.isBlank()) {
             output = "...Well?";
         } else {
             wordList = getWordList(lowerCaseTrimmed);
-            wordList.forEach(System.out::println);
             parseCommand(wordList);
         }
-
         return output;
     }
-
-
 }

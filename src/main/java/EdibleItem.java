@@ -11,7 +11,7 @@ public class EdibleItem extends Item {
     @Override
     public void eat() {
         if (!this.eaten) {
-            System.out.println("You tuck in. Sometime later, " + this.afterEating.toLowerCase() + ". You are still hungry.");
+            System.out.println("You tuck in. Some time later, " + this.afterEating.toLowerCase() + " You are still hungry.");
             this.eaten = true;
             this.setDescription(this.afterEating);
         } else {

@@ -10,7 +10,6 @@ public class Door extends Item {
         this.open = false;
         this.attempts = 0;
     }
-
     public void push(){
         if(!this.open) {
             System.out.println("The door is firmly closed.");
@@ -18,7 +17,6 @@ public class Door extends Item {
             System.out.println(this.getDescription());
         }
     }
-
     public void meow() {
         if (this.attempts < 2) {
             super.meow();
