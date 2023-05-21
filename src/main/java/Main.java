@@ -7,7 +7,9 @@ public class Main {
     private static Game game = new Game();
 
     public static void main(String[] args) {
-        System.out.println("Welcome to the world's most boring text adventure game.");
+        Game.loadRooms();
+        System.out.println("Welcome to the world's most boring cat-based text adventure game.");
+        Game.look();
         String input;
         String output;
         do {
