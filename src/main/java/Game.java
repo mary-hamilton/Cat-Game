@@ -62,7 +62,6 @@ public class Game {
             default:
                 newItem = null;
         }
-        Map<String, Item> newContents = new HashMap<>();
         room.getContents().put(newItem.getName(), newItem);
 
     }
@@ -104,7 +103,7 @@ public class Game {
     public static void seeInventory() {
         if (inventory != null) {
             System.out.println("You are carrying:");
-            System.out.println(inventory.getName());
+            System.out.println("A " + inventory.getName());
         } else {
             System.out.println("You are not carrying anything.");
         }
