@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class Room {
     public Room(String name, String description, byte xlocation, byte ylocation, CellType status, Map<Direction, String> adjacentRooms) {
         this.name = name;
         this.description = description;
+        this.contents = new HashMap<>();
         this.xlocation = xlocation;
         this.ylocation = ylocation;
         this.status = status;

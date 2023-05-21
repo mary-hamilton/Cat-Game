@@ -1,7 +1,7 @@
 public class EdibleItem extends Item {
 
-    boolean eaten;
-    String afterEating;
+    private boolean eaten;
+    private String afterEating;
     EdibleItem(String name, String description, String afterEating) {
         super(name, description);
         this.eaten = false;

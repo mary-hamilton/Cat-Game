@@ -21,11 +21,30 @@ public class Item {
     }
 
     public void meow() {
-        System.out.println("You let out a high-pitched shriek. The " + this.name + " looks back at you, unmoved.");
+        String meowType;
+        int randomiser = (int)Math.floor(Math.random() * 4);
+        switch(randomiser) {
+            case 1:
+                meowType = "high-pitched squeak";
+                break;
+            case 2:
+                meowType = "strangled growl";
+                break;
+            case 3:
+                meowType = "deeply-annoying whine";
+                break;
+            default:
+                meowType = "breathy hiss";
+        }
+        System.out.println("You let out a " + meowType + ". The " + this.name + " looks back at you, unmoved.");
     }
 
     public void get() {
         System.out.println("You cannot pick up the " + this.name + ", you are a small cat.");
+    }
+
+    public void push() {
+        System.out.println("You push the " + this.name + ". It seems largely pointless.");
     }
 
     public String getName() {

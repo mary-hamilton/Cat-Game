@@ -37,6 +37,7 @@ public class Game {
             }
             currentRoom = roomList.get("Bedroom");
             addItem(roomList.get("Bedroom"), "walnut");
+            addItem(roomList.get("Bedroom"), "door");
             addItem(roomList.get("Bathroom"), "walnut");
             addItem(roomList.get("Corridor 1"), "food");
             addItem(roomList.get("Office"), "houseplant");
@@ -57,12 +58,15 @@ public class Game {
             case "houseplant":
                 newItem = new Item("houseplant", "On the floor by the window is a large neglected-looking houseplant.");
                 break;
+            case "door":
+                newItem = new Door("door", "A stripped pine door to the west is closed.", Direction.WEST, "Corridor 1");
+                break;
             default:
                 newItem = null;
         }
         Map<String, Item> newContents = new HashMap<>();
-        newContents.put(newItem.getName(), newItem);
-        room.setContents(newContents);
+        room.getContents().put(newItem.getName(), newItem);
+
     }
 
     public static void move(String stringDirection) {
@@ -128,8 +132,8 @@ public class Game {
         directionVerbs.add("n");
         directionVerbs.add("e");
         directionVerbs.add("s");
-        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "drop"));
-        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory"));
+        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop"));
+        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door"));
         if (words.size() > 2) {
             System.out.println("Commands should just be 2 words");
         } else {
@@ -169,6 +173,9 @@ public class Game {
                                         break;
                                     case "get":
                                         thing.get();
+                                        break;
+                                    case "push":
+                                        thing.push();
                                         break;
                                     case "drop":
                                         System.out.println("You cannot drop something you aren't carrying!");
