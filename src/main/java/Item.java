@@ -13,7 +13,7 @@ public class Item {
     }
 
     public void bite() {
-        System.out.println("The " + this.name + " tastes awful. You are filled with regret.");
+        this.eat();
     }
 
     public void sleep() {
