@@ -5,7 +5,7 @@ import java.util.Map;
 public class Room {
     private String name;
     private String description;
-    private Map<String, Item> contents;
+    private Map<String, Thing> contents;
     private byte xlocation;
     private byte ylocation;
     private CellType status;
@@ -38,11 +38,11 @@ public class Room {
         this.description = description;
     }
 
-    public Map<String, Item> getContents() {
+    public Map<String, Thing> getContents() {
         return contents;
     }
 
-    public void setContents(Map<String, Item> contents) {
+    public void setContents(Map<String, Thing> contents) {
         this.contents = contents;
     }
 

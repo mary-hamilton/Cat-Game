@@ -27,10 +27,12 @@ START
 Corridor 2
 2
 2
-You are at the south end of a first floor corridor. There are various framed photographs of you on the walls. It smells faintly of washing powder. A blue door to your west is open enough for you to pass through.
+You are at the south end of a first floor corridor. There are various framed photographs of you on the walls. It smells faintly of washing powder. A blue door to your west is open enough for you to pass through. To your south is a flight of stairs.
 EMPTY
 WEST
 Office
+SOUTH
+Stairs
 ---
 Office
 1
@@ -41,12 +43,16 @@ EAST
 Corridor 2
 ---
 Stairs
+3
 2
-4
-You are on a flight of stairs covered in green carpet that has seen better days. There is a landing above to the north. At the south end of the stairs is a door with stained glass panels. You think you see something move beyond it.
+You are on a flight of stairs covered in green carpet that has seen better days. There is a landing above to the north.
 EMPTY
 NORTH
 Corridor 2
-SOUTH
+---
 Landing
+4
+2
+You are on a sunny ground-floor landing. The textured wallpaper at paw-height looks suspiciously shredded. There are open doors to the east and west.
+EMPTY
 ---

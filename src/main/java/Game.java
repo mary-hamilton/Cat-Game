@@ -8,9 +8,11 @@ public class Game {
 
     public Game() {
     }
+
     public static Map<String, Room> roomList = new HashMap<>();
     public static Room currentRoom;
     public static Item inventory;
+    public static byte pride = 15;
 
     public static void loadRooms() {
         try {
@@ -34,35 +36,43 @@ public class Game {
                 roomList.put(name, newRoom);
             }
             currentRoom = roomList.get("Bedroom");
-            addItem(roomList.get("Bedroom"), "walnut");
-            addItem(roomList.get("Bedroom"), "door");
-            addItem(roomList.get("Bathroom"), "walnut");
-            addItem(roomList.get("Corridor 1"), "food");
-            addItem(roomList.get("Office"), "houseplant");
+            addThing(roomList.get("Bedroom"), "walnut");
+            addThing(roomList.get("Bedroom"), "door");
+            addThing(roomList.get("Corridor 2"), "cat");
+            addThing(roomList.get("Bathroom"), "walnut");
+            addThing(roomList.get("Corridor 1"), "food");
+            addThing(roomList.get("Office"), "houseplant");
+            addThing(roomList.get("Stairs"), "door2");
         } catch (FileNotFoundException e) {
             System.out.println("Could not load level.");
         }
     }
 
-    public static void addItem(Room room, String itemToAdd) {
-        Item newItem;
-        switch (itemToAdd) {
+    public static void addThing(Room room, String thingToAdd) {
+        Thing newThing;
+        switch (thingToAdd) {
             case "walnut":
-                newItem = new MoveableItem("walnut", "A small brown walnut is on the floor.");
+                newThing = new MoveableItem("walnut", "A small brown walnut is on the floor.");
                 break;
             case "food":
-                newItem = new EdibleItem("food", "A red bowl on the floor is filled with glistening jellied chunks. They smell terrible but in a way you weirdly find appealling.", "The red bowl is empty.");
+                newThing = new EdibleItem("food", "A red bowl on the floor is filled with glistening jellied chunks. They smell terrible but in a way you weirdly find appealling.", "The red bowl is empty.");
                 break;
             case "houseplant":
-                newItem = new Item("houseplant", "On the floor by the window is a large neglected-looking houseplant.");
+                newThing = new Item("houseplant", "On the floor by the window is a large neglected-looking houseplant.");
                 break;
             case "door":
-                newItem = new Door("door", "A stripped pine door to the west is closed.", Direction.WEST, "Corridor 1");
+                newThing = new Door("door", "A stripped pine door to the west is closed.", Direction.WEST, "Corridor 1", (byte) 0);
+                break;
+            case "door2":
+                newThing = new Door("door", "At the south end of the stairs is a thick heavy door with stained glass panels. You think you see something move beyond it.", Direction.SOUTH, "Landing", (byte) 2);
+                break;
+            case "cat":
+                newThing = new OtherCat("cat", "There is a huge ginger and white cat standing in front of you.");
                 break;
             default:
-                newItem = null;
+                newThing = null;
         }
-        room.getContents().put(newItem.getName(), newItem);
+        room.getContents().put(newThing.getName(), newThing);
 
     }
 
@@ -90,8 +100,7 @@ public class Game {
             if (!currentRoom.getStatus().equals(CellType.START)) {
                 currentRoom.setStatus(CellType.CURRENT_ROOM);
             }
-            System.out.println(currentRoom.getDescription());
-            currentRoom.getContents().values().forEach(item -> System.out.println(item.getDescription()));
+            look();
         }
     }
 
@@ -129,8 +138,8 @@ public class Game {
         directionVerbs.add("n");
         directionVerbs.add("e");
         directionVerbs.add("s");
-        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play"));
-        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door"));
+        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play", "scratch", "stare", "hiss"));
+        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat"));
         if (words.size() > 2) {
             System.out.println("Commands should be 2 words or less");
         } else {
@@ -150,38 +159,55 @@ public class Game {
                         if (verb.equals("see") && noun.equals("inventory")) {
                             seeInventory();
                         } else {
-                            Item thing = currentRoom.getContents().get(noun);
-                            if (thing != null) {
+                            Thing thing = currentRoom.getContents().get(noun);
+                            if (thing instanceof Item) {
                                 switch (verb) {
                                     case "see":
                                         System.out.println(thing.getDescription());
                                         break;
                                     case "eat":
-                                        thing.eat();
+                                        ((Item) thing).eat();
                                         break;
                                     case "bite":
-                                        thing.bite();
+                                        ((Item) thing).bite();
                                         break;
                                     case "sleep":
-                                        thing.sleep();
+                                        ((Item) thing).sleep();
                                         break;
                                     case "meow":
-                                        thing.meow();
+                                        if (Game.inventory == null) {
+                                            ((Item) thing).meow();
+                                        } else {
+                                            System.out.println("You cannot meow with your mouth full.");
+                                        }
                                         break;
                                     case "get":
-                                        thing.get();
+                                        ((Item) thing).get();
                                         break;
                                     case "push":
-                                        thing.push();
+                                        ((Item) thing).push();
                                         break;
                                     case "play":
-                                        thing.play();
+                                        ((Item) thing).play();
+                                    case "scratch":
+                                        ((Item) thing).scratch();
                                         break;
                                     case "drop":
                                         System.out.println("You cannot drop something you aren't carrying!");
                                         break;
                                     default:
                                         System.out.println("You can't do that.");
+                                }
+                            } else if (thing instanceof OtherCat) {
+                                switch (verb) {
+                                    case "stare":
+                                        ((OtherCat) thing).stare();
+                                        break;
+                                    case "hiss":
+                                        ((OtherCat) thing).hiss();
+                                        break;
+                                    default:
+                                        System.out.println("You would never lower yourself to such behaviour.");
                                 }
                             } else if (inventory.getName().equals(noun)) {
                                 if (verb.equals("drop")) {
@@ -198,6 +224,7 @@ public class Game {
             }
         }
     }
+
     public String runCommand(String input) {
         List<String> wordList;
         String output = "";

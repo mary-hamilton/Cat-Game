@@ -3,12 +3,14 @@ public class Door extends Item {
     private Direction direction;
     private String otherSide;
     private byte attempts;
-    Door(String name, String description, Direction direction, String otherSide) {
+    private byte attemptsNeeded;
+    Door(String name, String description, Direction direction, String otherSide, byte attemptsNeeded) {
         super(name, description);
         this.direction = direction;
         this.otherSide = otherSide;
         this.open = false;
         this.attempts = 0;
+        this.attemptsNeeded = attemptsNeeded;
     }
     public void push(){
         if(!this.open) {
@@ -18,7 +20,7 @@ public class Door extends Item {
         }
     }
     public void meow() {
-        if (this.attempts < 2) {
+        if (this.attempts < this.attemptsNeeded) {
             super.meow();
             this.attempts++;
         } else if (!this.open) {
