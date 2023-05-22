@@ -38,8 +38,10 @@ public class Game {
             currentRoom = roomList.get("Bedroom");
             addThing(roomList.get("Bedroom"), "walnut");
             addThing(roomList.get("Bedroom"), "door");
+            addThing(roomList.get("Bedroom"), "bed");
             addThing(roomList.get("Corridor 2"), "cat");
             addThing(roomList.get("Bathroom"), "walnut");
+            addThing(roomList.get("Bathroom"), "laundry");
             addThing(roomList.get("Corridor 1"), "food");
             addThing(roomList.get("Office"), "houseplant");
             addThing(roomList.get("Stairs"), "door2");
@@ -68,6 +70,12 @@ public class Game {
                 break;
             case "cat":
                 newThing = new OtherCat("cat", "There is a huge ginger and white cat standing in front of you.");
+                break;
+            case "bed":
+                newThing = new SleepableItem("bed", "Sunlight streams onto a large, enticing-looking bed.");
+                break;
+            case "laundry":
+                newThing = new SleepableItem("laundry", "In the corner is a large basket of fresh, crisp-looking laundry.");
                 break;
             default:
                 newThing = null;
@@ -118,6 +126,16 @@ public class Game {
         }
     }
 
+    public static void refillAll() {
+        for(Room room : roomList.values()) {
+            for (Thing thing : room.getContents().values()) {
+                if (thing.getClass().equals(EdibleItem.class)) {
+                    ((EdibleItem) thing).refill();
+                }
+            }
+        }
+    }
+
     public static List<String> getWordList(String input) {
         String delims = " \t,.:;?!\"'";
         List<String> words = new ArrayList<>();
@@ -139,7 +157,7 @@ public class Game {
         directionVerbs.add("e");
         directionVerbs.add("s");
         List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play", "scratch", "stare", "hiss"));
-        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat"));
+        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat", "bed", "laundry"));
         if (words.size() > 2) {
             System.out.println("Commands should be 2 words or less");
         } else {
