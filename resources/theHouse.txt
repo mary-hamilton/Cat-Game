@@ -21,7 +21,7 @@ Corridor 2
 Bedroom
 1
 3
-You are in a bedroom. You are a small cat. Through the open window drifts the faint smell of summer barbeques and the sound of rustling leaves.
+You are in a bedroom. You are a small cat. Through the window drifts the faint smell of summer barbeques and the sound of rustling leaves.
 START
 ---
 Corridor 2
@@ -81,7 +81,7 @@ Front room
 Kitchen
 4
 3
-You are in a kitchen with speckled lino floor. There are wooden cupboards and a large Belfast sink. Dappled sun pours in through the east-facing windows. You catch the enticing scent of the outside world beyond.
+You are in a kitchen with speckled lino floor. There are wooden cupboards and a large Belfast sink. Dappled sun pours in through a skylight. You catch the enticing scent of the outside world beyond.
 EMPTY
 WEST
 Landing
@@ -89,7 +89,7 @@ Landing
 Garden
 4
 4
-You are in the garden.
+You are in the garden. THE END
 EMPTY
 WEST
 Kitchen

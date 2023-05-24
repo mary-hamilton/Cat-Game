@@ -14,6 +14,11 @@ public class OtherCat extends Thing {
         System.out.println("Summoning all your energy, you give the cat your most powerful withering glare.");
         this.respond();
     }
+    @Override
+    public void meow() {
+        super.meow();
+        this.respond();
+    }
 
     public void respond() {
         if (this.pride > 0) {

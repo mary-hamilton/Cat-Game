@@ -169,7 +169,7 @@ public class Game {
         directionVerbs.add("n");
         directionVerbs.add("e");
         directionVerbs.add("s");
-        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play", "scratch", "stare", "hiss"));
+        List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play", "scratch", "stare", "hiss", "under"));
         List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat", "bed", "laundry", "catflap", "collar", "sofa"));
         if (words.size() > 2) {
             System.out.println("Commands should be 2 words or less");
@@ -191,6 +191,7 @@ public class Game {
                             seeInventory();
                         } else {
                             Thing thing = currentRoom.getContents().get(noun);
+                            if (thing != null) {
                             if (thing instanceof Item) {
                                 switch (verb) {
                                     case "see":
@@ -207,7 +208,7 @@ public class Game {
                                         break;
                                     case "meow":
                                         if (Game.inventory == null) {
-                                            ((Item) thing).meow();
+                                            thing.meow();
                                         } else {
                                             System.out.println("You cannot meow with your mouth full.");
                                         }
@@ -226,6 +227,13 @@ public class Game {
                                     case "drop":
                                         System.out.println("You cannot drop something you aren't carrying!");
                                         break;
+                                    case "under":
+                                        if(thing.getName().equals("sofa")) {
+                                            Game.move(Direction.NORTH.toString());
+                                        } else {
+                                            System.out.println("You can't do that.");
+                                        }
+                                        break;
                                     default:
                                         System.out.println("You can't do that.");
                                 }
@@ -237,6 +245,9 @@ public class Game {
                                     case "hiss":
                                         ((OtherCat) thing).hiss();
                                         break;
+                                    case "meow":
+                                        thing.meow();
+                                        break;
                                     default:
                                         System.out.println("You would never lower yourself to such behaviour.");
                                 }
@@ -246,6 +257,7 @@ public class Game {
                                 } else {
                                     System.out.println("You can't do that while carefully carrying it in your mouth.");
                                 }
+                            }
                             } else {
                                 System.out.println("There is no " + noun + " here.");
                             }

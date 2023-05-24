@@ -8,6 +8,29 @@ public class Thing {
         this.description = description;
     }
 
+    public void meow() {
+        String meowType;
+        int randomiser = (int) Math.floor(Math.random() * 4);
+        switch (randomiser) {
+            case 1:
+                meowType = "high-pitched squeak";
+                break;
+            case 2:
+                meowType = "strangled growl";
+                break;
+            case 3:
+                meowType = "deeply-irritating whine";
+                break;
+            default:
+                meowType = "breathy trill";
+        }
+        System.out.println("You let out a " + meowType + ".");
+        if (!this.getClass().equals(OtherCat.class)) {
+            System.out.println("The " + this.getName() + " looks back at you, unmoved.");
+        }
+
+    }
+
     public String getName() {
         return name;
     }

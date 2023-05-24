@@ -19,25 +19,6 @@ public class Item extends Thing {
         System.out.println("The " + this.getName() + " does not meet your exacting requirements for a sleeping spot.");
     }
 
-    public void meow() {
-        String meowType;
-        int randomiser = (int) Math.floor(Math.random() * 4);
-        switch (randomiser) {
-            case 1:
-                meowType = "high-pitched squeak";
-                break;
-            case 2:
-                meowType = "strangled growl";
-                break;
-            case 3:
-                meowType = "deeply-irritating whine";
-                break;
-            default:
-                meowType = "breathy trill";
-        }
-        System.out.println("You let out a " + meowType + ". The " + this.getName() + " looks back at you, unmoved.");
-
-    }
 
     public void get() {
         System.out.println("You cannot pick up the " + this.getName() + ", you are a small cat.");
