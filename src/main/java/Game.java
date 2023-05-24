@@ -45,6 +45,10 @@ public class Game {
             addThing(roomList.get("Corridor 1"), "food");
             addThing(roomList.get("Office"), "houseplant");
             addThing(roomList.get("Stairs"), "door2");
+            addThing(roomList.get("Front room"), "sofa");
+            addThing(roomList.get("Under sofa"), "collar");
+            addThing(roomList.get("Kitchen"), "catflap");
+
         } catch (FileNotFoundException e) {
             System.out.println("Could not load level.");
         }
@@ -77,6 +81,15 @@ public class Game {
             case "laundry":
                 newThing = new SleepableItem("laundry", "In the corner is a large basket of fresh, crisp-looking laundry.");
                 break;
+            case "sofa":
+                newThing = new SleepableItem("sofa", "Against the north wall is a large sofa covered in a floor-length blue and yellow blanket. The cushions look particularly soft.");
+                break;
+            case "collar":
+                newThing = new MoveableItem("collar", "On the floor is a grey collar with some sort of electronic tag attached.");
+                break;
+            case "catflap":
+                newThing = new Catflap("catflap", "At the bottom of the east-facing door is a grey catflap. A light on top of it flashes intermittently.", Direction.EAST, "Garden", (byte) 0, "collar");
+                break;
             default:
                 newThing = null;
         }
@@ -107,10 +120,10 @@ public class Game {
             currentRoom = nextRoom;
             if (!currentRoom.getStatus().equals(CellType.START)) {
                 currentRoom.setStatus(CellType.CURRENT_ROOM);
-            }
-            look();
         }
+        look();
     }
+}
 
     public static void look() {
         System.out.println(currentRoom.getDescription());
@@ -157,7 +170,7 @@ public class Game {
         directionVerbs.add("e");
         directionVerbs.add("s");
         List<String> verbs = new ArrayList<>(Arrays.asList("look", "see", "eat", "sleep", "meow", "bite", "get", "push", "drop", "play", "scratch", "stare", "hiss"));
-        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat", "bed", "laundry"));
+        List<String> nouns = new ArrayList<>(Arrays.asList("walnut", "food", "houseplant", "inventory", "door", "cat", "bed", "laundry", "catflap", "collar", "sofa"));
         if (words.size() > 2) {
             System.out.println("Commands should be 2 words or less");
         } else {

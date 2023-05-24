@@ -1,9 +1,11 @@
 public class Door extends Item {
+    private  Item key;
     private boolean open;
     private Direction direction;
     private String otherSide;
     private byte attempts;
     private byte attemptsNeeded;
+
     Door(String name, String description, Direction direction, String otherSide, byte attemptsNeeded) {
         super(name, description);
         this.direction = direction;
@@ -11,7 +13,9 @@ public class Door extends Item {
         this.open = false;
         this.attempts = 0;
         this.attemptsNeeded = attemptsNeeded;
+        this.key = null;
     }
+
     public void push(){
         if(!this.open) {
             System.out.println("The door is firmly closed.");
@@ -32,12 +36,23 @@ public class Door extends Item {
             super.meow();
         }
     }
+
+
+
     public boolean isOpen() {
         return open;
     }
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    public String getOtherSide() {
+        return otherSide;
+    }
+
+    public void setOtherSide(String otherSide) {
+        this.otherSide = otherSide;
     }
 
     public Direction getDirection() {

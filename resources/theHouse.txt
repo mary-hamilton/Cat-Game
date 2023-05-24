@@ -53,6 +53,44 @@ Corridor 2
 Landing
 4
 2
-You are on a sunny ground-floor landing. The textured wallpaper at paw-height looks suspiciously shredded. There are open doors to the east and west.
+You are on a sunny ground-floor landing. The wood-chip wallpaper at paw-height looks suspiciously shredded. There are open doors to the east and west.
 EMPTY
+EAST
+Kitchen
+WEST
+Front room
+---
+Front room
+4
+1
+You are in a white room with a large window and a faded brick-red rug. Through the window you see horse-chestnut leaves shifting in the breeze.
+EMPTY
+EAST
+Landing
+NORTH
+Under sofa
+---
+Under sofa
+4
+1
+You are under the sofa. There is a lot of dust and a smell of old biscuits.
+EMPTY
+SOUTH
+Front room
+---
+Kitchen
+4
+3
+You are in a kitchen with speckled lino floor. There are wooden cupboards and a large Belfast sink. Dappled sun pours in through the east-facing windows. You catch the enticing scent of the outside world beyond.
+EMPTY
+WEST
+Landing
+---
+Garden
+4
+4
+You are in the garden.
+EMPTY
+WEST
+Kitchen
 ---
