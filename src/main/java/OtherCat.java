@@ -23,7 +23,7 @@ public class OtherCat extends Thing {
     public void respond() {
         if (this.pride > 0) {
             byte random = (byte) Math.floor(Math.random() * 3);
-            this.pride -= random + 2;
+            this.pride -= random + 3;
             switch (random) {
                 case 1:
                     Game.pride--;
